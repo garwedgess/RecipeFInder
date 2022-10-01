@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">RecipeFinder</string>
+    <string name="screen_title_home">Home</string>
+    <string name="screen_title_details">Details</string>
+    <string name="title_no_ingredients">No ingredients</string>
+    <string name="title_no_recipes">No Recipes</string>
+    <string name="title_recipes">Recipes</string>
+    <string name="title_available_ingredients">Available Ingredients</string>
+    <string name="title_ingredients">Ingredients</string>
+    <string name="btn_retry">Retry</string>
+    <string name="error_msg_unknown">Unknown error</string>
 </resources>
