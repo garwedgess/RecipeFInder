@@ -1,4 +1,4 @@
-package eu.wedgess.recipefinder.home
+package eu.wedgess.recipefinder.ui.home
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule

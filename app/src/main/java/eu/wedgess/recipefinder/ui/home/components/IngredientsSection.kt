@@ -20,12 +20,14 @@ import eu.wedgess.recipefinder.data.model.AvailableIngredientsData
  *
  * @param titleResourceId - the title string resource ID to display above the ingredients
  * @param availableIngredients - the [AvailableIngredientsData] object which contains the available ingredients list
+ * @param showClearChipIcon - Whether or not to display the clear icon for [IngredientChip]
  * @param onIngredientClicked - action for when an IngredientChip is clicked
  */
 @Composable
 fun IngredientsSection(
     titleResourceId: Int,
     availableIngredients: List<String>,
+    showClearChipIcon: Boolean = true,
     onIngredientClicked: ((String) -> Unit)? = null
 ) {
     Column(modifier = Modifier.testTag("IngredientSectionTag")) {
@@ -45,6 +47,7 @@ fun IngredientsSection(
             availableIngredients.forEach { ingredient ->
                 IngredientChip(
                     text = ingredient,
+                    showClearIcon = showClearChipIcon,
                     onClick = { clickedIngredient ->
                         onIngredientClicked?.invoke(clickedIngredient)
                     })

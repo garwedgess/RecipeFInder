@@ -339,10 +339,11 @@ class RecipeIngredientsRepositoryImplTest {
                 TestHelper.getRecipeByName("Meatball")
             )
         )
-        coEvery { ingredientsCacheDataSource.getAvailableIngredients() } returns
-                Resource.Success(
-                    expectedResponseData.availableIngredients
-                )
+        coEvery { ingredientsCacheDataSource.getAvailableIngredients() } answers {
+            Resource.Success(
+                expectedResponseData.availableIngredients
+            )
+        }
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns expectedResponseData.recipes
 
         runTest {

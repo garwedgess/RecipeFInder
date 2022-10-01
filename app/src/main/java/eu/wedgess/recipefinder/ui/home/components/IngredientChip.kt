@@ -26,11 +26,13 @@ import androidx.compose.ui.unit.dp
  * Ingredient chip - used for displaying the individual available ingredients
  *
  * @param text - ingredient name
+ * @param showClearIcon - show the clear icon in the chip
  * @param onClick - action for when an ingredient is clicked
  */
 @Composable
 fun IngredientChip(
     text: String,
+    showClearIcon: Boolean = true,
     onClick: (ingredient: String) -> Unit,
 ) {
     val shape = CircleShape
@@ -59,13 +61,15 @@ fun IngredientChip(
             text = text,
             color = Unspecified
         )
-        Icon(
-            modifier = Modifier
-                .size(24.dp)
-                .padding(end = 8.dp, top = 2.dp),
-            imageVector = Icons.Default.Clear,
-            contentDescription = "Clear"
-        )
+        if (showClearIcon) {
+            Icon(
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(end = 8.dp, top = 2.dp),
+                imageVector = Icons.Default.Clear,
+                contentDescription = "Clear"
+            )
+        }
     }
 }
 
@@ -74,6 +78,16 @@ fun IngredientChip(
 fun IngredientChipPreview() {
     IngredientChip(
         text = "sugar",
+        onClick = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun IngredientChipNoIconPreview() {
+    IngredientChip(
+        text = "sugar",
+        showClearIcon = false,
         onClick = {}
     )
 }
