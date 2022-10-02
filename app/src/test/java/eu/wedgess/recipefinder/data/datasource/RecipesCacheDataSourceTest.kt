@@ -1,7 +1,8 @@
 package eu.wedgess.recipefinder.data.datasource
 
-import eu.wedgess.recipefinder.helpers.TestHelper
 import eu.wedgess.recipefinder.data.datasource.recipes.RecipesCacheDataSource
+import eu.wedgess.recipefinder.data.mappers.RecipeMapper
+import eu.wedgess.recipefinder.helpers.TestHelper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -19,7 +20,7 @@ class RecipesCacheDataSourceTest {
 
     @Before
     fun setup() {
-        recipesCacheDataSource = RecipesCacheDataSource()
+        recipesCacheDataSource = RecipesCacheDataSource(RecipeMapper())
     }
 
     /**
@@ -29,7 +30,7 @@ class RecipesCacheDataSourceTest {
      */
     @Test
     fun cacheDataSourceGetAllRecipesReturnsExpectedRecipeData() {
-        val recipesDataList = TestHelper.createAllRecipesList()
+        val recipesDataList = TestHelper.createAllRecipesEntityList()
         runTest {
             val response = recipesCacheDataSource.getAllRecipes()
             assertEquals(recipesDataList, response)
@@ -46,7 +47,7 @@ class RecipesCacheDataSourceTest {
         runTest {
             val response =
                 recipesCacheDataSource.getCompatibleRecipes(listOf("Meat", "egg", "onion"))
-            assertEquals(TestHelper.getRecipeByName("Meatloaf"), response.first())
+            assertEquals(TestHelper.getRecipeEntityByName("Meatloaf"), response.first())
         }
     }
 

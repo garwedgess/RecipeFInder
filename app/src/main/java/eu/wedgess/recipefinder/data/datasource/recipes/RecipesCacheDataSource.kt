@@ -1,7 +1,9 @@
 package eu.wedgess.recipefinder.data.datasource.recipes
 
 import androidx.annotation.VisibleForTesting
+import eu.wedgess.recipefinder.data.mappers.RecipeMapper
 import eu.wedgess.recipefinder.data.model.RecipeData
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.decodeFromString
@@ -20,7 +22,7 @@ import javax.inject.Singleton
  * @constructor Create empty Recipes cache data source
  */
 @Singleton
-class RecipesCacheDataSource : RecipesDataSource {
+class RecipesCacheDataSource(val mapper: RecipeMapper) : RecipesDataSource {
 
     // Used to make suspend functions that read safe to call from any thread
     private val mutex = Mutex()
@@ -30,12 +32,17 @@ class RecipesCacheDataSource : RecipesDataSource {
         Json.decodeFromString<List<RecipeData>>(RECIPES_JSON)
     }
 
-    override suspend fun getAllRecipes(): List<RecipeData> {
-        return mutex.withLock { allRecipes }
+    override suspend fun getAllRecipes(): List<RecipeEntity> {
+        return mutex.withLock { allRecipes.map { mapper.mapToEntity(it) } }
     }
 
-    override suspend fun getCompatibleRecipes(ingredients: List<String>): List<RecipeData> {
-        return mutex.withLock { getRecipesForIngredients(allRecipes, ingredients) }
+    override suspend fun getCompatibleRecipes(ingredients: List<String>): List<RecipeEntity> {
+        return mutex.withLock {
+            getRecipesForIngredients(
+                allRecipes,
+                ingredients
+            ).map { mapper.mapToEntity(it) }
+        }
     }
 
     /**

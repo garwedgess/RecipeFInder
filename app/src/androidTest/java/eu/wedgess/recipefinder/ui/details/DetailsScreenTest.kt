@@ -4,8 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import eu.wedgess.recipefinder.data.model.RecipeData
-import eu.wedgess.recipefinder.ui.details.DetailsScreen
-import eu.wedgess.recipefinder.ui.details.DetailsUiState
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import eu.wedgess.recipefinder.ui.theme.RecipeFinderTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -32,7 +31,7 @@ class DetailsScreenTest {
             RecipeFinderTheme {
                 DetailsScreen(
                     uiState = DetailsUiState.RecipeDetails(
-                        recipe = RecipeData(
+                        recipe = RecipeEntity(
                             name = "Cheesecake",
                             ingredients = listOf("biscuit", "butter", "sugar")
                         ),
@@ -60,7 +59,7 @@ class DetailsScreenTest {
             RecipeFinderTheme {
                 DetailsScreen(
                     uiState = DetailsUiState.RecipeDetails(
-                        recipe = RecipeData(
+                        recipe = RecipeEntity(
                             name = "Cheesecake",
                             ingredients = listOf("biscuit", "butter", "sugar")
                         ),

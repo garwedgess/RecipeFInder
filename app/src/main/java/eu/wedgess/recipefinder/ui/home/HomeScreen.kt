@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import eu.wedgess.recipefinder.R
 import eu.wedgess.recipefinder.data.model.RecipeData
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import eu.wedgess.recipefinder.ui.common.ErrorSection
 import eu.wedgess.recipefinder.ui.home.components.IngredientsSection
 import eu.wedgess.recipefinder.ui.home.components.RecipesListSection
@@ -33,7 +34,7 @@ import eu.wedgess.recipefinder.ui.home.components.RecipesListSection
 fun HomeScreen(
     uiState: HomeUiState,
     onIngredientClicked: (String) -> Unit,
-    onRecipeClicked: (RecipeData) -> Unit,
+    onRecipeClicked: (RecipeEntity) -> Unit,
     onRetry: () -> Unit
 ) {
     when (uiState) {
@@ -122,7 +123,7 @@ fun HomeScreenNoRecipesOrIngredientsPreview() {
         uiState = HomeUiState.HasRecipes(
             availableIngredients = listOf("Meat", "egg", "onion"),
             recipes = listOf(
-                RecipeData(
+                RecipeEntity(
                     name = "Meatloaf",
                     ingredients = listOf("Meat", "egg", "onion")
                 )

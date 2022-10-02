@@ -1,8 +1,8 @@
 package eu.wedgess.recipefinder.ui.details
 
 import androidx.lifecycle.SavedStateHandle
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import eu.wedgess.recipefinder.helpers.MainCoroutineRule
-import eu.wedgess.recipefinder.data.model.RecipeData
 import eu.wedgess.recipefinder.ui.navigation.NavigationKeys
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
@@ -103,7 +103,7 @@ class DetailsViewModelTest {
      */
     @Test
     fun iewModelIsInitializedAndGetRecipeWithInvalidJsonSetsStateAsRecipeDetailsWithCorrectData() {
-        val expectedData = RecipeData(
+        val expectedData = RecipeEntity(
             name = "Chicken tikka masala",
             ingredients = listOf("chicken", "butter", "onion")
         )

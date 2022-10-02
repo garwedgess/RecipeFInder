@@ -5,6 +5,15 @@ import eu.wedgess.recipefinder.data.model.IngredientsApiResponseData
 import eu.wedgess.recipefinder.domain.Mapper
 import eu.wedgess.recipefinder.domain.entities.Resource
 
+/**
+ * Base abstract class to handle mapping of [ApiResponse] to [Resource]. All errors are converted here,
+ * the child classes must implement [handleSuccessResponse] to determine if the result is a
+ * [Resource.Success] or
+ * [Resource.Empty]
+ *
+ * @param E - entity class
+ * @param D - data class
+ */
 abstract class BaseApiResponseToResourceMapper<E, D> :
     Mapper<Resource<E>, IngredientsApiResponseData<D>> {
 

@@ -3,10 +3,7 @@ package eu.wedgess.recipefinder.ui.home
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import eu.wedgess.recipefinder.data.model.AvailableIngredientsData
-import eu.wedgess.recipefinder.data.model.RecipeData
-import eu.wedgess.recipefinder.ui.home.HomeScreen
-import eu.wedgess.recipefinder.ui.home.HomeUiState
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import eu.wedgess.recipefinder.ui.theme.RecipeFinderTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -35,15 +32,15 @@ class HomeScreenTest {
                     uiState = HomeUiState.HasRecipes(
                         availableIngredients = listOf("biscuit", "butter", "sugar", "chocolate"),
                         recipes = listOf(
-                            RecipeData(
+                            RecipeEntity(
                                 name = "Cheesecake",
                                 ingredients = listOf("biscuit", "butter", "sugar")
                             ),
-                            RecipeData(
+                            RecipeEntity(
                                 name = "Chocolate brownie",
                                 ingredients = listOf("chocolate", "butter", "sugar")
                             ),
-                            RecipeData(
+                            RecipeEntity(
                                 name = "Chicken tikka masala",
                                 ingredients = listOf("chicken", "butter", "onion")
                             )
@@ -83,11 +80,11 @@ class HomeScreenTest {
                     uiState = HomeUiState.HasRecipes(
                         availableIngredients = listOf("biscuit", "butter", "sugar", "chocolate"),
                         recipes = listOf(
-                            RecipeData(
+                            RecipeEntity(
                                 name = "Cheesecake",
                                 ingredients = listOf("biscuit", "butter", "sugar")
                             ),
-                            RecipeData(
+                            RecipeEntity(
                                 name = "Chocolate brownie",
                                 ingredients = listOf("chocolate", "butter", "sugar")
                             )

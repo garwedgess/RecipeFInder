@@ -1,11 +1,11 @@
 package eu.wedgess.recipefinder.ui.details
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.wedgess.recipefinder.data.model.RecipeData
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import eu.wedgess.recipefinder.ui.navigation.NavigationKeys
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
@@ -52,7 +52,7 @@ class DetailsViewModel @Inject constructor(
                 ?: throw IllegalStateException("No recipe passed to destination.")
             viewModelState.update {
                 it.copy(
-                    recipe = Json.decodeFromString(RecipeData.serializer(), selectedRecipeJson),
+                    recipe = Json.decodeFromString(RecipeEntity.serializer(), selectedRecipeJson),
                     isLoading = false,
                     errorMessage = null
                 )

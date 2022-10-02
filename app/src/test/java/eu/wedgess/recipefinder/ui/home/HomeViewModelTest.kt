@@ -73,7 +73,7 @@ class HomeViewModelTest {
     fun viewModelGetIngredientsReturnsStateAsTypeHasRecipes() {
         val expectedResponse = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "egg", "onion"),
-            recipes = TestHelper.getRecipesByName(listOf("Meatloaf"))
+            recipes = TestHelper.getRecipesEntityByName(listOf("Meatloaf"))
         )
         coEvery { getIngredientsAndRecipesUseCase.execute(refresh = any()) } returns Resource.Success(
             expectedResponse
@@ -123,7 +123,7 @@ class HomeViewModelTest {
     fun viewModelGetIngredientsReturnsExpectedRecipesData() {
         val expectedResponse = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "egg", "onion"),
-            recipes = TestHelper.getRecipesByName(listOf("Meatloaf"))
+            recipes = TestHelper.getRecipesEntityByName(listOf("Meatloaf"))
         )
         coEvery { getIngredientsAndRecipesUseCase.execute(refresh = any()) } returns Resource.Success(
             expectedResponse

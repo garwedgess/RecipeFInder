@@ -1,9 +1,9 @@
 package eu.wedgess.recipefinder.domain.usecases
 
-import eu.wedgess.recipefinder.helpers.TestHelper
 import eu.wedgess.recipefinder.domain.RecipeIngredientsRepository
 import eu.wedgess.recipefinder.domain.entities.IngredientsWithRecipesEntity
 import eu.wedgess.recipefinder.domain.entities.Resource
+import eu.wedgess.recipefinder.helpers.TestHelper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -51,7 +51,7 @@ class GetIngredientsAndRecipesUseCaseTest {
         coEvery { recipeIngredientsRepository.getAvailableIngredients() } returns Resource.Success(
             IngredientsWithRecipesEntity(
                 availableIngredients = listOf("Meat", "parmesan", "onion", "egg"),
-                recipes = TestHelper.getRecipesByName(listOf("Meatball"))
+                recipes = TestHelper.getRecipesEntityByName(listOf("Meatball"))
             )
         )
         runTest {
@@ -72,7 +72,7 @@ class GetIngredientsAndRecipesUseCaseTest {
         coEvery { recipeIngredientsRepository.getAvailableIngredients() } returns Resource.Success(
             IngredientsWithRecipesEntity(
                 availableIngredients = listOf("Meat", "parmesan", "onion", "egg"),
-                recipes = TestHelper.getRecipesByName(listOf("Meatball"))
+                recipes = TestHelper.getRecipesEntityByName(listOf("Meatball"))
             )
         )
         runTest {
@@ -90,7 +90,7 @@ class GetIngredientsAndRecipesUseCaseTest {
     fun useCaseExecuteCallsRepositoryGetAvailableIngredientsAndReturnsCorrectDataOnSuccess() {
         val expectedResponseData = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "parmesan", "onion", "egg"),
-            recipes = TestHelper.getRecipesByName(listOf("Meatball"))
+            recipes = TestHelper.getRecipesEntityByName(listOf("Meatball"))
         )
         coEvery { recipeIngredientsRepository.getAvailableIngredients() } returns Resource.Success(
             expectedResponseData

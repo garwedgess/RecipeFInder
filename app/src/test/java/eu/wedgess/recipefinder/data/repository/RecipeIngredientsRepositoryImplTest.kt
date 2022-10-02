@@ -1,12 +1,12 @@
 package eu.wedgess.recipefinder.data.repository
 
-import eu.wedgess.recipefinder.helpers.TestHelper
 import eu.wedgess.recipefinder.data.datasource.ingredients.IngredientsCacheDataSource
 import eu.wedgess.recipefinder.data.datasource.ingredients.IngredientsRemoteDataSource
 import eu.wedgess.recipefinder.data.datasource.recipes.RecipesCacheDataSource
 import eu.wedgess.recipefinder.data.model.ApiResponse
 import eu.wedgess.recipefinder.domain.entities.IngredientsWithRecipesEntity
 import eu.wedgess.recipefinder.domain.entities.Resource
+import eu.wedgess.recipefinder.helpers.TestHelper
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,7 +54,7 @@ class RecipeIngredientsRepositoryImplTest {
 
     /**
      * Given - [IngredientsRemoteDataSource.getAvailableIngredients] returns [Resource.Success] with data and
-     * [RecipesCacheDataSource.getCompatibleRecipes] returns [List<RecipeData>]
+     * [RecipesCacheDataSource.getCompatibleRecipes] returns [List<RecipeEntity>]
      * When - [RecipeIngredientsRepositoryImpl.getAvailableIngredients] is called with isRefresh=true
      * Then - [IngredientsRemoteDataSource.getAvailableIngredients], [IngredientsCacheDataSource.cacheAllAvailableIngredients] &
      * [RecipesCacheDataSource.getCompatibleRecipes] is called exactly once
@@ -66,7 +66,7 @@ class RecipeIngredientsRepositoryImplTest {
             availableIngredients
         )
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = true)
@@ -93,7 +93,7 @@ class RecipeIngredientsRepositoryImplTest {
         )
         coEvery { ingredientsCacheDataSource.getAvailableIngredients() } answers { Resource.Empty }
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = false)
@@ -107,7 +107,7 @@ class RecipeIngredientsRepositoryImplTest {
 
     /**
      * Given - [IngredientsRemoteDataSource.getAvailableIngredients] returns [Resource.Success] with data and
-     * [RecipesCacheDataSource.getCompatibleRecipes] returns [List<RecipeData>]
+     * [RecipesCacheDataSource.getCompatibleRecipes] returns [List<RecipeEntity>]
      * When - [RecipeIngredientsRepositoryImpl.getAvailableIngredients] is called with isRefresh=true
      * Then - [IngredientsCacheDataSource.cacheAllAvailableIngredients] is not called
      */
@@ -118,7 +118,7 @@ class RecipeIngredientsRepositoryImplTest {
             availableIngredients
         )
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = true)
@@ -134,7 +134,7 @@ class RecipeIngredientsRepositoryImplTest {
      * [IngredientsCacheDataSource.getAvailableIngredients] returns [Resource.Success]
      * When - [RecipeIngredientsRepositoryImpl.getAvailableIngredients] is called with isRefresh=false but
      * [IngredientsCacheDataSource.getAvailableIngredients] returns [Resource.Empty]
-     * Then - [IngredientsRemoteDataSource.getAvailableIngredients] and
+     * Then - [IngredientsRemoteDataSource.getAvailableIngredients], [RecipesCacheDataSource.getCompatibleRecipes] &
      * [IngredientsCacheDataSource.cacheAllAvailableIngredients] is called exactly once
      */
     @Test
@@ -145,7 +145,7 @@ class RecipeIngredientsRepositoryImplTest {
         )
         coEvery { ingredientsCacheDataSource.getAvailableIngredients() } answers { Resource.Empty }
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = false)
@@ -162,8 +162,9 @@ class RecipeIngredientsRepositoryImplTest {
      * [IngredientsCacheDataSource.getAvailableIngredients] returns [Resource.Success]
      * When - [RecipeIngredientsRepositoryImpl.getAvailableIngredients] is called with
      * isRefresh=false but [IngredientsCacheDataSource.getAvailableIngredients] returns [Resource.Empty]
-     * Then - [IngredientsRemoteDataSource.cacheAllAvailableIngredients] &
-     * [IngredientsCacheDataSource.cacheAllAvailableIngredients] is executed once
+     * Then - [IngredientsCacheDataSource.getAvailableIngredients] & [IngredientsRemoteDataSource.getAvailableIngredients]
+     * [IngredientsCacheDataSource.cacheAllAvailableIngredients] & [RecipesCacheDataSource.getCompatibleRecipes]
+     * is executed once
      */
     @Test
     fun repositoryGetAvailableIngredientsExecutedWithRefreshFalseButCacheIsEmptyThenCachesAndRemoteIngredientsIsExecutedOnce() {
@@ -173,7 +174,7 @@ class RecipeIngredientsRepositoryImplTest {
         )
         coEvery { ingredientsCacheDataSource.getAvailableIngredients() } answers { Resource.Empty }
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = false)
@@ -191,8 +192,8 @@ class RecipeIngredientsRepositoryImplTest {
      * [IngredientsCacheDataSource.getAvailableIngredients] returns [Resource.Empty]
      * When - [RecipeIngredientsRepositoryImpl.getAvailableIngredients] is called with
      * isRefresh=false but [IngredientsCacheDataSource.getAvailableIngredients] returns [Resource.Empty]
-     * Then - [IngredientsRemoteDataSource.cacheAllAvailableIngredients], [IngredientsCacheDataSource.cacheAllAvailableIngredients]
-     * & [IngredientsCacheDataSource.cacheAllAvailableIngredients] is executed in order once
+     * Then - [IngredientsCacheDataSource.getAvailableIngredients], [IngredientsRemoteDataSource.getAvailableIngredients]
+     * & [IngredientsCacheDataSource.cacheAllAvailableIngredients] & [RecipesCacheDataSource.getCompatibleRecipes] is executed in order once
      */
     @Test
     fun repositoryGetAvailableIngredientsExecutedWithRefreshFalseButCacheIsEmptyThenCachesAndRemoteIngredientsIsExecutedInOrder() {
@@ -202,7 +203,7 @@ class RecipeIngredientsRepositoryImplTest {
         )
         coEvery { ingredientsCacheDataSource.getAvailableIngredients() } answers { Resource.Empty }
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = false)
@@ -232,7 +233,7 @@ class RecipeIngredientsRepositoryImplTest {
             availableIngredients
         )
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            TestHelper.getRecipeByName("Meatball")
+            TestHelper.getRecipeEntityByName("Meatball")
         )
         runTest {
             val response = recipeIngredientsRepositoryImpl.getAvailableIngredients(isRefresh = true)
@@ -251,7 +252,7 @@ class RecipeIngredientsRepositoryImplTest {
         val expectedResponseData = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "parmesan", "onion"),
             recipes = listOf(
-                TestHelper.getRecipeByName("Meatball")
+                TestHelper.getRecipeEntityByName("Meatball")
             )
         )
         coEvery { ingredientsRemoteDataSource.getAvailableIngredients() } returns Resource.Success(
@@ -316,7 +317,7 @@ class RecipeIngredientsRepositoryImplTest {
             )
         }
         coEvery { recipesCacheDataSource.getCompatibleRecipes(any()) } returns listOf(
-            requireNotNull(TestHelper.getRecipeByName("Meatball"))
+            requireNotNull(TestHelper.getRecipeEntityByName("Meatball"))
         )
         runTest {
             val response =
@@ -336,7 +337,7 @@ class RecipeIngredientsRepositoryImplTest {
         val expectedResponseData = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "parmesan", "onion"),
             recipes = listOf(
-                TestHelper.getRecipeByName("Meatball")
+                TestHelper.getRecipeEntityByName("Meatball")
             )
         )
         coEvery { ingredientsCacheDataSource.getAvailableIngredients() } answers {
@@ -370,7 +371,7 @@ class RecipeIngredientsRepositoryImplTest {
         val expectedResponseData = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "parmesan", "onion"),
             recipes = listOf(
-                TestHelper.getRecipeByName("Meatball")
+                TestHelper.getRecipeEntityByName("Meatball")
             )
         )
         coEvery { ingredientsCacheDataSource.removeIngredient(any()) } returns

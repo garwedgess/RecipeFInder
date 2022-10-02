@@ -1,6 +1,6 @@
 package eu.wedgess.recipefinder.ui.home
 
-import eu.wedgess.recipefinder.data.model.RecipeData
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 
 
 /**
@@ -37,7 +37,7 @@ sealed interface HomeUiState {
      * @constructor Create empty Has recipes
      */
     data class HasRecipes(
-        val recipes: List<RecipeData>,
+        val recipes: List<RecipeEntity>,
         val availableIngredients: List<String>,
         override val isLoading: Boolean = false,
         override val errorMessage: String? = null
@@ -69,7 +69,7 @@ sealed interface HomeUiState {
  * @constructor Create empty Home view model state
  */
 data class HomeViewModelState(
-    val recipes: List<RecipeData>? = null,
+    val recipes: List<RecipeEntity>? = null,
     val availableIngredients: List<String>? = null,
     val errorMessage: String? = null,
     val isLoading: Boolean = false

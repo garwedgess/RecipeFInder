@@ -1,9 +1,9 @@
 package eu.wedgess.recipefinder.domain.usecases
 
-import eu.wedgess.recipefinder.helpers.TestHelper
 import eu.wedgess.recipefinder.domain.RecipeIngredientsRepository
 import eu.wedgess.recipefinder.domain.entities.IngredientsWithRecipesEntity
 import eu.wedgess.recipefinder.domain.entities.Resource
+import eu.wedgess.recipefinder.helpers.TestHelper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -53,7 +53,7 @@ class RemoveIngredientUseCaseTest {
         coEvery { recipeIngredientsRepository.removeIngredient(ingredientToRemove) } returns Resource.Success(
             IngredientsWithRecipesEntity(
                 availableIngredients = listOf("Meat", "parmesan", "onion"),
-                recipes = TestHelper.getRecipesByName(listOf("Meatball"))
+                recipes = TestHelper.getRecipesEntityByName(listOf("Meatball"))
             )
         )
         runTest {
@@ -75,7 +75,7 @@ class RemoveIngredientUseCaseTest {
         coEvery { recipeIngredientsRepository.removeIngredient(ingredientToRemove) } returns Resource.Success(
             IngredientsWithRecipesEntity(
                 availableIngredients = listOf("Meat", "parmesan", "onion"),
-                recipes = TestHelper.getRecipesByName(listOf("Meatball"))
+                recipes = TestHelper.getRecipesEntityByName(listOf("Meatball"))
             )
         )
         runTest {
@@ -93,7 +93,7 @@ class RemoveIngredientUseCaseTest {
     fun useCaseExecuteCallsRepositoryRemoveIngredientAndReturnsCorrectDataOnSuccess() {
         val expectedResponseData = IngredientsWithRecipesEntity(
             availableIngredients = listOf("Meat", "parmesan", "onion"),
-            recipes = TestHelper.getRecipesByName(listOf("Meatball"))
+            recipes = TestHelper.getRecipesEntityByName(listOf("Meatball"))
         )
         val ingredientToRemove = "egg"
         coEvery { recipeIngredientsRepository.removeIngredient(ingredientToRemove) } returns Resource.Success(

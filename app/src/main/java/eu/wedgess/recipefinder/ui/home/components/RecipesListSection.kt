@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import eu.wedgess.recipefinder.R
 import eu.wedgess.recipefinder.data.model.RecipeData
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 
 /**
  * Recipes list section - displays the AvailableIngredientsSection, list title and all compatible recipes in a list
@@ -33,8 +34,8 @@ import eu.wedgess.recipefinder.data.model.RecipeData
 @Composable
 fun RecipesListSection(
     availableIngredientsSection: @Composable() (LazyItemScope.() -> Unit),
-    recipes: List<RecipeData>,
-    onRecipeClicked: (RecipeData) -> Unit
+    recipes: List<RecipeEntity>,
+    onRecipeClicked: (RecipeEntity) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -96,7 +97,7 @@ fun RecipesListSectionAllDataPreview() {
             )
         },
         recipes = listOf(
-            RecipeData(
+            RecipeEntity(
                 name = "MeatLoaf",
                 ingredients = listOf("Meat", "onion", "butter")
             )

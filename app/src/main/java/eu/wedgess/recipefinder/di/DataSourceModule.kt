@@ -9,6 +9,7 @@ import eu.wedgess.recipefinder.data.datasource.ingredients.IngredientsCacheDataS
 import eu.wedgess.recipefinder.data.datasource.ingredients.IngredientsRemoteDataSource
 import eu.wedgess.recipefinder.data.datasource.recipes.RecipesCacheDataSource
 import eu.wedgess.recipefinder.data.mappers.AvailableIngredientResponseMapper
+import eu.wedgess.recipefinder.data.mappers.RecipeMapper
 import javax.inject.Singleton
 
 /**
@@ -35,7 +36,7 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideRecipesCacheDataSource(): RecipesCacheDataSource {
-        return RecipesCacheDataSource()
+    fun provideRecipesCacheDataSource(recipeMapper: RecipeMapper): RecipesCacheDataSource {
+        return RecipesCacheDataSource(recipeMapper)
     }
 }

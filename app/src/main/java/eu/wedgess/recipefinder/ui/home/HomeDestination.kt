@@ -15,6 +15,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import eu.wedgess.recipefinder.data.model.RecipeData
+import eu.wedgess.recipefinder.domain.entities.RecipeEntity
 import eu.wedgess.recipefinder.ui.navigation.NavigationKeys
 import eu.wedgess.recipefinder.ui.theme.Amber700
 import kotlinx.serialization.json.Json
@@ -48,7 +49,7 @@ fun HomeDestination(navController: NavController) {
             }, onRecipeClicked = {
                 navController.navigate(
                     "${NavigationKeys.Route.RECIPES_HOME}/${
-                        Json.encodeToString(RecipeData.serializer(), it)
+                        Json.encodeToString(RecipeEntity.serializer(), it)
                     }"
                 )
             }, onRetry = {
