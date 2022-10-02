@@ -20,7 +20,7 @@ fun NavigationGraph(
     NavHost(
         navController = navController,
         startDestination = NavigationKeys.Route.RECIPES_HOME,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(8.dp)
     ) {
         composable(route = NavigationKeys.Route.RECIPES_HOME) {
             setCurrentScreen(Screen.Home)

@@ -40,6 +40,7 @@ fun RecipesListSection(
         modifier = Modifier
             .fillMaxHeight()
             .testTag("RecipesListTag")
+            .padding(start = 8.dp, end = 8.dp)
     ) {
         item {
             availableIngredientsSection()
@@ -56,7 +57,8 @@ fun RecipesListSection(
                 modifier =
                 Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    ,
                 shape = RoundedCornerShape(2.dp),
                 elevation = 4.dp,
                 onClick = {

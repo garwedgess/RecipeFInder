@@ -22,7 +22,7 @@ fun RecipeDetailsDestination() {
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(scaffoldState = scaffoldState) {
-        Column(modifier = Modifier.padding(PaddingValues(16.dp))) {
+        Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             DetailsScreen(uiState = uiState)
         }
 

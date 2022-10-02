@@ -1,6 +1,7 @@
 package eu.wedgess.recipefinder.ui.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -40,7 +41,9 @@ fun HomeScreen(
             // no list so in order for the SwipeRefreshLayout to work we must set vertical scroll
             Column(
                 modifier = Modifier
+                    .fillMaxHeight()
                     .verticalScroll(rememberScrollState())
+                    .padding(start = 8.dp, end = 8.dp)
             ) {
                 IngredientsSection(
                     titleResourceId = R.string.title_available_ingredients,
@@ -50,7 +53,7 @@ fun HomeScreen(
                 Text(
                     text = stringResource(R.string.title_no_recipes),
                     style = MaterialTheme.typography.body1.copy(fontSize = 16.sp),
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(top = 16.dp)
                 )
             }
         }

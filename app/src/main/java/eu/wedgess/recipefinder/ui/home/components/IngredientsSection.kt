@@ -25,6 +25,7 @@ import eu.wedgess.recipefinder.data.model.AvailableIngredientsData
  */
 @Composable
 fun IngredientsSection(
+    sectionModifier: Modifier = Modifier.padding(bottom = 8.dp),
     titleResourceId: Int,
     availableIngredients: List<String>,
     showClearChipIcon: Boolean = true,
@@ -34,7 +35,7 @@ fun IngredientsSection(
         Text(
             text = stringResource(titleResourceId),
             style = MaterialTheme.typography.h5,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = sectionModifier
         )
 
         FlowRow(
