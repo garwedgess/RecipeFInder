@@ -1,4 +1,3 @@
-
 # Recipes
 
 [![Unit Tests](https://github.com/garwedgess/RecipeFinder/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/garwedgess/RecipeFinder/actions/workflows/unit_tests.yml)
@@ -17,19 +16,19 @@ Based on the provided ingredients, only recipes which contain the available ingr
 This app uses a basic implementation of clean architecture.
 
 - **data**    
-  -- Api: Remote API to fetch the available ingredients using [Ktor](https://ktor.io/)
-  -- Data Sources: Contains cache and remote data sources for the ingredients and cache data source for recipes
-  -- Repository: Used to fetch ingredients from cache or network, for fetching recipes from cache and combining the data to be returned to the UI
-  -- Mappers: used for mapping data layer models to domain entities
-  -- Model - for all data classes
-  -- Utils: contains an extension function on the HttpClient to wrap the API response
+  - Api: Remote API to fetch the available ingredients using [Ktor](https://ktor.io/)
+  - Data Sources: Contains cache and remote data sources for the ingredients and cache data source for recipes
+  - Repository: Used to fetch ingredients from cache or network, for fetching recipes from cache and combining the data to be returned to the UI
+  - Mappers: used for mapping data layer models to domain entities
+  - Model - for all data classes
+  - Utils: contains an extension function on the HttpClient to wrap the API response
 - **domain**
-  -- Entities: which are mapped from data models using the Mappers in the data later
-  -- Usecases: used for executing repository methods. These use cases are used by the ViewModels 
+  - Entities: which are mapped from data models using the Mappers in the data later
+  - Usecases: used for executing repository methods. These use cases are used by the ViewModels 
 - **di**    
-  -- Contains the Hilt modules used for dependency injection
+  - Contains the Hilt modules used for dependency injection
 - **ui**    
-  -- Contains the ViewModels and the components used to build the UI using Jetpack Compose
+  - Contains the ViewModels and the components used to build the UI using Jetpack Compose
 
 ## Features
 

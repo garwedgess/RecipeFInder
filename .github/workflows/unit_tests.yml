@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew clean
 
       - name: Unit tests
-        run: ./gradlew testó
+        run: ./gradlew test
 
       - name: Unit tests results
         uses: actions/upload-artifact@v1
